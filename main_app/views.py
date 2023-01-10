@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+# Define the home view
+def home (request):
+  # Include a .html file extension - unlike when rendering EJS templates
+  return render(request, 'home.html')
