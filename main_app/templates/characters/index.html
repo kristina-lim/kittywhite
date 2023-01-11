@@ -9,7 +9,7 @@
     {% else %}
       <div class="card" style="background-color:#F5C3C2">
     {% endif %}
-    <a href="/characters/{{ character.id }}">
+    <a href="{% url 'detail' character.id %}">
       <div class="card-content">
         <span class="card-title">{{ character.name }}</span>
         {% if character.gender == 'male' %}
