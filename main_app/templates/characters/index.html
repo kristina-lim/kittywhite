@@ -10,12 +10,12 @@
       <div class="card" style="background-color:#F5C3C2">
     {% endif %}
     <div class="card-content">
+      <span class="card-title">{{ character.name }}</span>
       {% if character.gender == 'male' %}
         <span class="card-gender">♂</span>
       {% else %}
         <span class="card-gender">♀</span>
       {% endif %}
-      <span class="card-title">{{ character.name }}</span>
       <p>Birthday: {{ character.birthday }}</p>
       <p>Species: {{ character.species }}</p>
       <p>Description: {{ character.description }}</p>
