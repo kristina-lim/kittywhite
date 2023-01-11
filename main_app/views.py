@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Character
 
 # Define the home view
@@ -25,3 +25,11 @@ def characters_detail(request, character_id):
 class CharacterCreate(CreateView):
   model = Character
   fields = '__all__'
+
+class CharacterUpdate(UpdateView):
+  model = Character
+  fields = ['birthday', 'breed', 'description']
+
+class CharacterDelete(DeleteView):
+  model = Character
+  success_url = '/characters'
