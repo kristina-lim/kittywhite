@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Character
+from django.views.generic import ListView, DetailView
+from .models import Character, Hobby
 from .forms import FeedingForm
 
 # Define the home view
@@ -44,3 +45,21 @@ class CharacterUpdate(UpdateView):
 class CharacterDelete(DeleteView):
   model = Character
   success_url = '/characters'
+
+class HobbyList(ListView):
+  model = Hobby
+
+class HobbyDetail(DetailView):
+  model = Hobby
+
+class HobbyCreate(CreateView):
+  model = Hobby
+  fields = '__all__'
+
+class HobbyUpdate(UpdateView):
+  model = Hobby
+  fields = ['name', 'color']
+
+class HobbyDelete(DeleteView):
+  model = Hobby
+  success_url = '/hobbies'

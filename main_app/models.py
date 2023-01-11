@@ -8,7 +8,16 @@ MEALS = (
   ('D', 'Dinner')
 )
 
-# Create your models here.
+class Hobby(models.Model):
+  name = models.CharField(max_length=50)
+  color = models.CharField(max_length=20)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('hobbies_detail', kwargs={'pk': self.id})
+
 class Character(models.Model):
   name = models.CharField(max_length=100)
   gender = models.CharField(max_length=100)

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Hobby List</h1>
+{% for hobby in hobby_list %}
+  <a href="{% url 'hobbies_detail' hobby.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ hobby.name }}</span>
+            <p>Color: {{ hobby.color }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+{% endblock %}
