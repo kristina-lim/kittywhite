@@ -3,15 +3,17 @@ from django.shortcuts import render
 characters = [
   {
     'name': 'Hello Kitty',
-    'species': 'person',
+    'gender': 'female',
+    'birthday': 'November 1',
+    'species': 'Cat',
     'description': 'Born in the suburbs of London. She lives with her parents and her twin sister Mimmy who is her bestfriend.',
-    'birthday': 'November 1'
   },
   {
     'name': 'Mimmy White',
-    'species': 'person',
+    'gender': 'female',
+    'birthday': 'November 1',
+    'species': 'Cat',
     'description': 'Born in the suburbs of London. She lives with her parents and her twin sister Kitty who is her bestfriend.',
-    'birthday': 'November 1'
   },
 ]
 
