@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Character Collection</h1>
-  <div class="character-container">
-    {% for character in characters %}
-      {% if character.gender == 'male' %}
-        <div class="card" style="background-color:#8CC0DE">
-      {% else %}
-        <div class="card" style="background-color:#F5C3C2">
-      {% endif %}
-      <a href="{% url 'detail' character.id %}">
-        <div class="card-content">
-          <span class="card-title">{{ character.name }}</span>
-          {% if character.gender == 'male' %}
-            <span class="card-gender">♂</span>
-          {% else %}
-            <span class="card-gender">♀</span>
-          {% endif %}
-          <p>Birthday: {{ character.birthday }}</p>
-          <p>Breed: {{ character.breed }}</p>
-        </div>
-      </a>
-    {% endfor %}
-  </div>
+<h1>Character Collection</h1>
+<div class="character-container">
+  {% for character in characters %}
+    {% if character.gender == 'male' %}
+      <div class="card" style="background-color:#8CC0DE">
+    {% else %}
+      <div class="card" style="background-color:#F5C3C2">
+    {% endif %}
+    <a href="{% url 'detail' character.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ character.name }}</span>
+        {% if character.gender == 'male' %}
+          <span class="card-gender">♂</span>
+        {% else %}
+          <span class="card-gender">♀</span>
+        {% endif %}
+        <p>Birthday: {{ character.birthday }}</p>
+        <p>Breed: {{ character.breed }}</p>
+      </div>
+    </a>
+  {% endfor %}
+</div>
 {% endblock %}
