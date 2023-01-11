@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ character.name }} Details</h1>
+  <h1>{{ character.name }} Details</h1>
 
-<div class="container">
-  {% if character.gender == 'male' %}
-    <div class="card" style="background-color:#8CC0DE">
-  {% else %}
-    <div class="card" style="background-color:#F5C3C2">
-  {% endif %}
-  <div class="card-content">
-    <span class="card-title">{{ cat.name }}</span>
+  <div class="container">
     {% if character.gender == 'male' %}
-      <span class="card-gender">♂</span>
+      <div class="card" style="background-color:#8CC0DE">
     {% else %}
-      <span class="card-gender">♀</span>
+      <div class="card" style="background-color:#F5C3C2">
     {% endif %}
-    <p>Birthday: {{ character.birthday }}</p>
-    <p>Breed: {{ character.breed }}</p>
-    <p>Description: {{ character.description|linebreaks }}</p>
-    <a class="action" href="{% url 'characters_update' character.id %}">Edit</a>
-    <a class="action" href="{% url 'characters_delete' character.id %}">Delete</a>
+    <div class="card-content">
+      <span class="card-title">{{ cat.name }}</span>
+      {% if character.gender == 'male' %}
+        <span class="card-gender">♂</span>
+      {% else %}
+        <span class="card-gender">♀</span>
+      {% endif %}
+      <p>Birthday: {{ character.birthday }}</p>
+      <p>Breed: {{ character.breed }}</p>
+      <p>Description: {{ character.description|linebreaks }}</p>
+      <a class="action" href="{% url 'characters_update' character.id %}">Edit</a>
+      <a class="action" href="{% url 'characters_delete' character.id %}">Delete</a>
+    </div>
   </div>
-</div>
 {% endblock %}
