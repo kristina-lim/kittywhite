@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import Character
 
 # Define the home view
@@ -20,3 +21,7 @@ def characters_detail(request, character_id):
   return render(request, 'characters/detail.html', {
     'character': character
   })
+
+class CharacterCreate(CreateView):
+  model = Character
+  fields = '__all__'
