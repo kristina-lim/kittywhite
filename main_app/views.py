@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Character
+from .forms import FeedingForm
 
 # Define the home view
 def home(request):
@@ -18,8 +19,10 @@ def characters_index(request):
 
 def characters_detail(request, character_id):
   character = Character.objects.get(id=character_id)
+  feeding_form = FeedingForm()
   return render(request, 'characters/detail.html', {
-    'character': character
+    'character': character,
+    'feeding_form': feeding_form
   })
 
 class CharacterCreate(CreateView):
