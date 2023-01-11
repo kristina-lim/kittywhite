@@ -15,11 +15,11 @@
     <nav>
       <div class="nav-wrapper">
         <ul>
-          <li><a href="/" class="left brand-logo">  Kitty White</a></li>
+          <li><a href="{% url 'home' %}" class="left brand-logo">  Kitty White</a></li>
         </ul>
         <ul class="right">
-          <li><a href="/about">About</a></li>
-          <li><a href="/characters">View All Hello Kitty & Friends</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'index' %}">View All Hello Kitty & Friends</a></li>
         </ul>
       </div>
     </nav>
