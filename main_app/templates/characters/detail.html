@@ -22,4 +22,19 @@
     <a class="action" href="{% url 'characters_delete' character.id %}">Delete</a>
   </div>
 </div>
+<div class="col s6">
+  <table class="striped">
+    <thead>
+      <tr><th>Date</th><th>Meal</th></tr>
+    </thead>
+    <tbody>
+      {% for feeding in character.feeding_set.all %}
+      <tr>
+        <td>{{feeding.date}}</td>
+        <td>{{feeding.get_meal_display}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}
