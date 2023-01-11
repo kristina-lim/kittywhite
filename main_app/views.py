@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Character
 from .forms import FeedingForm
@@ -24,6 +24,14 @@ def characters_detail(request, character_id):
     'character': character,
     'feeding_form': feeding_form
   })
+
+def add_feeding(request, character_id):
+  form = FeedingForm(request.POST)
+  if form.is_valid():
+    new_feeding = form.save(commit=False)
+    new_feeding.character_id = character_id
+    new_feeding.save()
+  return redirect('detail', character_id=character_id)
 
 class CharacterCreate(CreateView):
   model = Character
