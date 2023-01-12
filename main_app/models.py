@@ -24,6 +24,7 @@ class Character(models.Model):
   birthday = models.CharField(max_length=100)
   breed = models.CharField(max_length=100)
   description = models.TextField(max_length=350)
+  hobbies = models.ManyToManyField(Hobby)
   
   def __str__(self):
     return f'{self.name} ({self.id})'
