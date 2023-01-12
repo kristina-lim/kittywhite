@@ -52,12 +52,18 @@
   <div class="col s6">
     <h3>{{ character.name }}'s Hobbies</h3>
     {% if character.hobbies.count %}
-      {% for character in character.hobbies.all %}
+      {% for hobby in character.hobbies.all %}
         <div class="card">
           <div class="card-content">
             <span class="card-title">
               A <span style="color: {{ hobby.color }}">{{ hobby.color }}</span> {{ hobby.name }}
             </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_hobby' character.id hobby.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
           </div>
         </div>
       {% endfor %}
@@ -77,7 +83,7 @@
           </span>
         </div>
         <div class="card-action">
-          <form action="{% url 'assoc_toy' character.id hobby.id %}" method="POST">
+          <form action="{% url 'assoc_hobby' character.id hobby.id %}" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn">Add</button>
           </form>
@@ -85,7 +91,7 @@
       </div>
     {% endfor %}
   {% else %}
-    <h5>{{character.name}} Already Has All Hobbies Available</h5>
+    <h5>{{character.name}} already has all hobbies available</h5>
   {% endif %}
 </div>
 <script>

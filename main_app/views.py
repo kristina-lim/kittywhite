@@ -67,6 +67,10 @@ class HobbyDelete(DeleteView):
   model = Hobby
   success_url = '/hobbies'
 
-def assoc_toy(request, character_id, hobby_id):
+def assoc_hobby(request, character_id, hobby_id):
   Character.objects.get(id=character_id).hobbies.add(hobby_id)
+  return redirect('detail', character_id=character_id)
+
+def unassoc_hobby(request, character_id, hobby_id):
+  Character.objects.get(id=character_id).hobbies.remove(hobby_id)
   return redirect('detail', character_id=character_id)
