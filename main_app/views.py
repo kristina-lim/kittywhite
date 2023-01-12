@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Character, Hobby, Photo
 from .forms import FeedingForm
 
@@ -46,7 +47,7 @@ def add_feeding(request, character_id):
     new_feeding.save()
   return redirect('detail', character_id=character_id)
 
-class CharacterCreate(CreateView):
+class CharacterCreate(LoginRequiredMixin, CreateView):
   model = Character
   fields = ['name', 'gender', 'birthday', 'breed', 'description']
 
@@ -54,29 +55,29 @@ class CharacterCreate(CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class CharacterUpdate(UpdateView):
+class CharacterUpdate(LoginRequiredMixin, UpdateView):
   model = Character
   fields = ['birthday', 'breed', 'description']
 
-class CharacterDelete(DeleteView):
+class CharacterDelete(LoginRequiredMixin, DeleteView):
   model = Character
   success_url = '/characters'
 
-class HobbyList(ListView):
+class HobbyList(LoginRequiredMixin, ListView):
   model = Hobby
 
-class HobbyDetail(DetailView):
+class HobbyDetail(LoginRequiredMixin, DetailView):
   model = Hobby
 
-class HobbyCreate(CreateView):
+class HobbyCreate(LoginRequiredMixin, CreateView):
   model = Hobby
   fields = '__all__'
 
-class HobbyUpdate(UpdateView):
+class HobbyUpdate(LoginRequiredMixin, UpdateView):
   model = Hobby
   fields = ['name', 'color']
 
-class HobbyDelete(DeleteView):
+class HobbyDelete(LoginRequiredMixin, DeleteView):
   model = Hobby
   success_url = '/hobbies'
 
