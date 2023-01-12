@@ -20,10 +20,13 @@ def characters_index(request):
 
 def characters_detail(request, character_id):
   character = Character.objects.get(id=character_id)
+  id_list = character.hobbies.all().values_list('id')
+  hobbies_character_doesnt_have = Hobby.objects.exclude(id__in=id_list)
   feeding_form = FeedingForm()
   return render(request, 'characters/detail.html', {
     'character': character,
-    'feeding_form': feeding_form
+    'feeding_form': feeding_form,
+    'hobbies': hobbies_character_doesnt_have
   })
 
 def add_feeding(request, character_id):
