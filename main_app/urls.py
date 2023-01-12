@@ -18,4 +18,5 @@ urlpatterns = [
   path('hobbies/create/', views.HobbyCreate.as_view(), name='hobbies_create'),
   path('hobbies/<int:pk>/update/', views.HobbyUpdate.as_view(), name='hobbies_update'),
   path('hobbies/<int:pk>/delete/', views.HobbyDelete.as_view(), name='hobbies_delete'),
+  path('accounts/signup/', views.signup, name='signup'),
 ]

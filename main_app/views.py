@@ -44,6 +44,10 @@ class CharacterCreate(CreateView):
   model = Character
   fields = ['name', 'gender', 'birthday', 'breed', 'description']
 
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
 class CharacterUpdate(UpdateView):
   model = Character
   fields = ['birthday', 'breed', 'description']
