@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Character, Hobby, Photo
 from .forms import FeedingForm
 
@@ -17,12 +18,14 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def characters_index(request):
-  characters = Character.objects.all()
+  characters = Character.objects.filter(user=request.user)
   return render(request, 'characters/index.html', {
     'characters': characters
   })
 
+@login_required
 def characters_detail(request, character_id):
   character = Character.objects.get(id=character_id)
   id_list = character.hobbies.all().values_list('id')
@@ -34,6 +37,7 @@ def characters_detail(request, character_id):
     'hobbies': hobbies_character_doesnt_have
   })
 
+@login_required
 def add_feeding(request, character_id):
   form = FeedingForm(request.POST)
   if form.is_valid():
@@ -76,14 +80,17 @@ class HobbyDelete(DeleteView):
   model = Hobby
   success_url = '/hobbies'
 
+@login_required
 def assoc_hobby(request, character_id, hobby_id):
   Character.objects.get(id=character_id).hobbies.add(hobby_id)
   return redirect('detail', character_id=character_id)
 
+@login_required
 def unassoc_hobby(request, character_id, hobby_id):
   Character.objects.get(id=character_id).hobbies.remove(hobby_id)
   return redirect('detail', character_id=character_id)
 
+@login_required
 def add_photo(request, character_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
