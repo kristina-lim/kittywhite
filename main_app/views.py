@@ -39,7 +39,7 @@ def add_feeding(request, character_id):
 
 class CharacterCreate(CreateView):
   model = Character
-  fields = '__all__'
+  fields = ['name', 'gender', 'birthday', 'breed', 'description']
 
 class CharacterUpdate(UpdateView):
   model = Character
@@ -66,3 +66,7 @@ class HobbyUpdate(UpdateView):
 class HobbyDelete(DeleteView):
   model = Hobby
   success_url = '/hobbies'
+
+def assoc_toy(request, character_id, hobby_id):
+  Character.objects.get(id=character_id).hobbies.add(hobby_id)
+  return redirect('detail', character_id=character_id)
