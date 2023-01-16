@@ -12,6 +12,7 @@ MEALS = (
 class Hobby(models.Model):
   name = models.CharField(max_length=50)
   color = models.CharField(max_length=20)
+  img = models.CharField(max_length=100, default='')
 
   def __str__(self):
     return self.name
@@ -21,6 +22,7 @@ class Hobby(models.Model):
 
 class Character(models.Model):
   name = models.CharField(max_length=100)
+  img = models.CharField(max_length=100, default='')
   gender = models.CharField(max_length=100)
   birthday = models.CharField(max_length=100)
   breed = models.CharField(max_length=100)

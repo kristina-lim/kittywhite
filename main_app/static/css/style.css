@@ -1,14 +1,161 @@
+footer.page-footer {
+  color: black;
+  padding-top: 0;
+  text-align: right;
+}
+
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-color: white;
 }
 
-main {
-  flex: 1 0 auto;
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 5vh auto 0
 }
 
-footer.page-footer {
-  padding-top: 0;
-  text-align: right;
+#id_username, #id_password, #id_password1, #id_password2, #id_date {
+  width: 300px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.helptext {
+  display: block;
+  visibility: hidden;
+}
+
+body, .hellokitty {
+  display: flex;
+}
+
+body, input {
+  font-family: 'FrankfurterCom-Regular', sans-serif;
+}
+
+li, h1, h4, .card-title, .btn, form, .name {
+  font-family: 'FrankfurterCom-Regular', sans-serif;
+}
+
+.nav-wrapper, h1, h4, .card-content, form label, .btn {
+  text-shadow: 1.5px 1.5px rgb(230, 244, 250);
+}
+
+h1, h4, .card-content, form label, .card a {
+  color: black;
+}
+
+.btn, form label, .card-gender, h5 {
+  font-size: 20px;
+}
+
+.card, .card-panel, .btn {
+  border-radius: 25px;
+}
+
+.nav-wrapper, .btn, footer.page-footer {
+  background-color: rgb(230, 244, 250);
+}
+
+h1, h4, h5, .card-content {
+  text-align: center;
+}
+
+.character, .hobby {
+  height: 250px;
+  padding: 15px 0 15px 0;
+  filter: drop-shadow(1px 1px 5px grey)
+}
+
+.nav-wrapper a {
+  color: black;
+}
+
+.left.brand-logo {
+  margin-left: 20px;
+}
+
+.character-container, .detail-container, .hellokitty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.character-container {
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+}
+
+.card {
+  background-color: rgb(230, 244, 250);
+  margin: 25px auto;
+  width: 375px;
+  height: 400px;
+}
+
+.card-gender {
+  font-weight: 900;
+  float: left;
+  padding-right: 5px;
+}
+
+.action {
+  padding: 50px;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.hellokitty {
+  height: 40.5rem;
+}
+
+#hellokitty {
+  padding-top: 6rem;
+}
+
+.btn {
+  margin-top: 25px;
+  color: black;
+}
+
+.btn:hover {
+  background-color: red;
+  color: black;
+}
+
+.submit {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-panel {
+  /* background-color: rgb(230, 244, 250); */
+  width: 375px;
+  margin: 20px auto;
+}
+
+input.select-dropdown.dropdown-trigger {
+  width: 300px;
+  text-align: center;
+}
+
+.striped {
+  background-color: rgb(230, 244, 250);
+  width: 400px;
+  margin: auto;
 }

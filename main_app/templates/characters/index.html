@@ -11,14 +11,15 @@
     {% endif %}
     <a href="{% url 'detail' character.id %}">
       <div class="card-content">
-        <span class="card-title">{{ character.name }}</span>
         {% if character.gender == 'male' %}
           <span class="card-gender">♂</span>
         {% else %}
           <span class="card-gender">♀</span>
         {% endif %}
-        <p>Birthday: {{ character.birthday }}</p>
-        <p>Breed: {{ character.breed }}</p>
+        <span class="card-title">{{ character.name }}</span>
+        <img class="character" src="{{ character.img }}">
+        <p><span class="bold">Birthday:</span> {{ character.birthday }}</p>
+        <p><span class="bold">Breed:</span> {{ character.breed }}</p>
       </div>
     </a>
   {% endfor %}

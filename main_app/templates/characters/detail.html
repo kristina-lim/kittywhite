@@ -3,118 +3,124 @@
 {% block content %}
 <h1>{{ character.name }} Details</h1>
 <div class="container">
-  {% if character.gender == 'male' %}
-    <div class="card" style="background-color:#8CC0DE">
-  {% else %}
-    <div class="card" style="background-color:#F5C3C2">
-  {% endif %}
-  <div class="card-content">
-    <span class="card-title">{{ character.name }}</span>
-    {% if character.gender == 'male' %}
-      <span class="card-gender">♂</span>
+  <div class="row">
+    <div class="col s6">
+      <div class="detail-container">
+        {% if character.gender == 'male' %}
+        <div class="card" style="background-color:#8CC0DE">
+        {% else %}
+        <div class="card" style="background-color:#F5C3C2">
+        {% endif %}
+          <div class="card-content">
+            {% if character.gender == 'male' %}
+              <span class="card-gender">♂</span>
+            {% else %}
+              <span class="card-gender">♀</span>
+            {% endif %}
+            <span class="card-title">{{ character.name }}</span>
+            <img class="character" src="{{ character.img }}">
+            <p><span class="bold">Birthday:</span> {{ character.birthday }}</p>
+            <p><span class="bold">Height:</span> {{ character.height }}</p>
+            <a class="action" href="{% url 'characters_update' character.id %}">Edit</a>
+            <a class="action" href="{% url 'characters_delete' character.id %}">Delete</a>
+          </div>
+        </div>
+        </div>
+        {% for photo in character.photo_set.all %}
+          <img class="responsive-img card-panel" src="{{ photo.url }}">
+        {% empty %}
+          <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+        {% endfor %}
+          <form action="{% url 'add_photo' character.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+            {% csrf_token %}
+            <input type="file" name="photo-file">
+            <button type="submit" class="btn">Upload Photo</button>
+          </form>
+      </div>
+  <div class="col s6">
+    {% if character.fed_for_today %}
+      <div class="card-panel teal-text center-align"><span class="name">{{character.name}}</span> has been fed all meals for today.</div>
     {% else %}
-      <span class="card-gender">♀</span>
+      <div class="card-panel red-text center-align"><span class="name">{{character.name}}</span> might be hungry!</div>
     {% endif %}
-    <p>Birthday: {{ character.birthday }}</p>
-    <p>Breed: {{ character.breed }}</p>
-    <p>Description: {{ character.description|linebreaks }}</p>
-    <a class="action" href="{% url 'characters_update' character.id %}">Edit</a>
-    <a class="action" href="{% url 'characters_delete' character.id %}">Delete</a>
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Meal</th></tr>
+      </thead>
+      <tbody>
+        {% for feeding in character.feeding_set.all %}
+        <tr>
+          <td>{{feeding.date}}</td>
+          <td>{{feeding.get_meal_display}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form action="{% url 'add_feeding' character.id %}" method="POST">
+      {% csrf_token %}
+      {{ feeding_form.as_p }}
+      <div class="submit">
+        <input type="submit" class="btn" value="Add Feeding">
+      </div>
+      </form>
   </div>
-</div>
-{% for photo in character.photo_set.all %}
-  <img class="responsive-img card-panel" src="{{photo.url}}">
-{% empty %}
-  <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-{% endfor %}
-<form action="{% url 'add_photo' character.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-  {% csrf_token %}
-  <input type="file" name="photo-file">
-  <br><br>
-  <button type="submit" class="btn">Upload Photo</button>
-</form>
-<div class="col s6">
-  <form action="{% url 'add_feeding' character.id %}" method="POST">
-    {% csrf_token %}
-    {{ feeding_form.as_p }}
-    <input type="submit" class="btn" value="Add Feeding">
-  </form>
-  {% if character.fed_for_today %}
-    <div class="card-panel teal-text center-align">{{character.name}} has been fed all meals for today.</div>
-  {% else %}
-    <div class="card-panel red-text center-align">{{character.name}} might be hungry!</div>
-  {% endif %}
-  <table class="striped">
-    <thead>
-      <tr><th>Date</th><th>Meal</th></tr>
-    </thead>
-    <tbody>
-      {% for feeding in character.feeding_set.all %}
-      <tr>
-        <td>{{feeding.date}}</td>
-        <td>{{feeding.get_meal_display}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
 </div>
 <hr>
 <div class="row">
   <div class="col s6">
-    <h3>{{ character.name }}'s Hobbies</h3>
+    <h4>{{ character.name }}'s Hobbies</h4>
     {% if character.hobbies.count %}
       {% for hobby in character.hobbies.all %}
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">
-              A <span style="color: {{ hobby.color }}">{{ hobby.color }}</span> {{ hobby.name }}
-            </span>
-          </div>
-          <div class="card-action">
-            <form action="{% url 'unassoc_hobby' character.id hobby.id %}" method="POST">
-              {% csrf_token %}
-              <button type="submit" class="btn">Remove</button>
-            </form>
+        <div class="detail-container">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">{{ hobby.name }}</span>
+              <img class="hobby" src="{{ hobby.img }}">
+              <form action="{% url 'unassoc_hobby' character.id hobby.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Remove</button>
+              </form>
+            </div>
           </div>
         </div>
       {% endfor %}
     {% else %}
-      <h5>No Hobbies 😿</h5>
+      <h5>No Hobbies</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h4>Available Hobbies</h4>
+    {% if hobbies.count %}
+      {% for hobby in hobbies.all %}
+        <div class="detail-container">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">{{ hobby.name }}</span>
+              <img class="hobby" src="{{ hobby.img }}">
+              <form action="{% url 'assoc_hobby' character.id hobby.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Add</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{character.name}} Already Has All Hobbies Available</h5>
     {% endif %}
   </div>
 </div>
-<div class="col s6">
-  <h3>Available Hobbies</h3>
-  {% if hobbies.count %}
-    {% for hobby in hobbies.all %}
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">
-            A <span style="color: {{ hobby.color }}">{{ hobby.color }}</span> {{ hobby.name }}
-          </span>
-        </div>
-        <div class="card-action">
-          <form action="{% url 'assoc_hobby' character.id hobby.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn">Add</button>
-          </form>
-        </div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <h5>{{character.name}} already has all hobbies available</h5>
-  {% endif %}
 </div>
-<script>
-  const dateEl = document.getElementById('id_date');
-  // M is Materialize's global variable
-  M.Datepicker.init(dateEl, {
-    format: 'yyyy-mm-dd',
-    defaultDate: new Date(),
-    setDefaultDate: true,
-    autoClose: true
-  });
-  const selectEl = document.getElementById('id_meal');
-  M.FormSelect.init(selectEl);
-</script>
+  <script>
+    const dateEl = document.getElementById('id_date');
+      M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+      });
+    const selectEl = document.getElementById('id_meal');
+      M.FormSelect.init(selectEl);
+  </script>  
 {% endblock %}
+
